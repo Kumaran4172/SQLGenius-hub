@@ -1,0 +1,16 @@
+:root {
+  // Custom variable values only support SassScript inside `#{}`.
+  @each $color, $value in $colors {
+    --#{$variable-prefix}#{$color}: #{if($color == "primary", #007bff, $value)};
+  }
+
+  @each $color, $value in $theme-colors {
+    --#{$variable-prefix}#{$color}: #{if($color == "primary", #007bff, $value)};
+  }
+
+  // Use `inspect` for lists so that quoted items keep the quotes.
+  --#{$variable-prefix}font-sans-serif: #{inspect($font-family-sans-serif)};
+  --#{$variable-prefix}font-monospace: #{inspect($font-family-monospace)};
+  --#{$variable-prefix}gradient: linear-gradient(to right, #007bff, #0056b3);
+}
+
