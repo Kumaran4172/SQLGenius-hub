@@ -31,6 +31,58 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+
+    <!-- Firebase SDK (Add this) -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+      import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+
+      // Your Firebase config - replace with your actual config
+      const firebaseConfig = {
+        apiKey: "AIzaSyDwbNPm65zz_kYkJ4wZrYMqkLA_YnhX6JA",
+        authDomain: "sqlgeniushub-authentication.firebaseapp.com",
+        projectId: "sqlgeniushub-authentication",
+        storageBucket: "sqlgeniushub-authentication.firebasestorage.app",
+        messagingSenderId: "1064467414896",
+        appId: "1:1064467414896:web:d940e4c773ade8ef3a99b5",
+        measurementId: "G-C6JEPB77H8"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      window.checkLogin = async function () {
+        // Assuming you store logged-in user's email in localStorage on login
+        const userEmail = localStorage.getItem("loggedInUserEmail");
+
+        if (userEmail) {
+          // Fetch user document from Firestore (assuming collection 'users' with doc id = email)
+          const userDocRef = doc(db, "users", userEmail);
+          const userDocSnap = await getDoc(userDocRef);
+
+          if (userDocSnap.exists()) {
+            const userData = userDocSnap.data();
+            document.getElementById("nav-login").style.display = "none";
+            document.getElementById("nav-user").style.display = "block";
+            document.getElementById("user-name").textContent = userData.username || userEmail;
+          } else {
+            // User doc not found in DB - treat as logged out
+            localStorage.removeItem("loggedInUserEmail");
+          }
+        } else {
+          document.getElementById("nav-login").style.display = "block";
+          document.getElementById("nav-user").style.display = "none";
+        }
+      };
+
+      window.logoutUser = function () {
+        localStorage.removeItem("loggedInUserEmail");
+        location.reload();
+      };
+
+      window.addEventListener('DOMContentLoaded', checkLogin);
+    </script>
 </head>
 
 <body>
@@ -63,12 +115,24 @@
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                     <div class="dropdown-menu fade-down m-0">
                         <a href="team.html" class="dropdown-item">Our Team</a>
-                        
-
                     </div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
-                <a href="login.html" class="nav-item nav-link"><i class="fa fa-user"></i></a>
+
+                <!-- LOGIN LINK - shown if NOT logged in -->
+                <a href="login.html" id="nav-login" class="nav-item nav-link"><i class="fa fa-user"></i></a>
+
+                <!-- USER DROPDOWN - shown if logged in -->
+                <div class="nav-item dropdown" id="nav-user" style="display:none;">
+                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                    <i class="fa fa-user"></i> <span id="user-name"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="logoutUser()">Logout</a></li>
+                  </ul>
+                </div>
+
                 <a href="#" class="nav-item nav-link">
                     <div id="google_translate_element"></div>
                 </a>
