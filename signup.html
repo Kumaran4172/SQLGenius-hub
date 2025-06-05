@@ -237,6 +237,26 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script type="module">
+  const signupForm = document.querySelector('form');
+  signupForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+      await window.addDoc(window.collection(window.db, "users"), {
+        email: email,
+        password: password
+      });
+      alert("Signup successful!");
+      window.location.href = "login.html";
+    } catch (error) {
+      console.error("Error signing up:", error);
+      alert("Signup failed.");
+    }
+  });
+</script>
 </body>
 
 </html>
