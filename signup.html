@@ -216,44 +216,6 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-    <!-- 🔽 Paste this inside the <body> tag before closing -->
-<script type="module">
-  // Import Firebase
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
-
-  // Your Firebase config
-  const firebaseConfig = {
-    apiKey: "AIzaSyDwbNPm65zz_kYkJ4wZrYMqkLA_YnhX6JA",
-    authDomain: "sqlgeniushub-authentication.firebaseapp.com",
-    projectId: "sqlgeniushub-authentication",
-    storageBucket: "sqlgeniushub-authentication.appspot.com",
-    messagingSenderId: "1064467414896",
-    appId: "1:1064467414896:web:747b7b1a70547c163a99b5",
-    measurementId: "G-ZFRWC3753C"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  // Handle Signup
-  document.querySelector("form").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        alert("Signup successful! Please login.");
-        window.location.href = "login.html";
-      })
-      .catch((error) => {
-        alert("Signup failed: " + error.message);
-      });
-  });
-</script>
 </body>
 
 </html>
