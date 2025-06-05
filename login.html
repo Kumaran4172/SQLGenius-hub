@@ -233,6 +233,37 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script type="module">
+  const loginForm = document.querySelector('form');
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const enteredEmail = document.getElementById('email').value;
+    const enteredPassword = document.getElementById('password').value;
+
+    try {
+      const querySnapshot = await window.getDocs(window.collection(window.db, "users"));
+      let loggedIn = false;
+
+      querySnapshot.forEach((doc) => {
+        const user = doc.data();
+        if (user.email === enteredEmail && user.password === enteredPassword) {
+          loggedIn = true;
+          localStorage.setItem("isLoggedIn", "true");
+          alert("Login successful!");
+          window.location.href = "index.html"; // or dashboard
+        }
+      });
+
+      if (!loggedIn) {
+        alert("Invalid email or password.");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Login failed.");
+    }
+  });
+</script>
+
 </body>
 
 </html>
