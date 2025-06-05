@@ -5,29 +5,51 @@
     <meta charset="utf-8">
     <title>SQLGeniushub : Login</title>
     <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-  import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyDwbNPm65zz_kYkJ4wZrYMqkLA_YnhX6JA",
-    authDomain: "sqlgeniushub-authentication.firebaseapp.com",
-    projectId: "sqlgeniushub-authentication",
-    storageBucket: "sqlgeniushub-authentication.appspot.com",
-    messagingSenderId: "1064467414896",
-    appId: "1:1064467414896:web:d940e4c773ade8ef3a99b5"
-  };
+        const firebaseConfig = {
+            apiKey: "AIzaSyDwbNPm65zz_kYkJ4wZrYMqkLA_YnhX6JA",
+            authDomain: "sqlgeniushub-authentication.firebaseapp.com",
+            projectId: "sqlgeniushub-authentication",
+            storageBucket: "sqlgeniushub-authentication.appspot.com",
+            messagingSenderId: "1064467414896",
+            appId: "1:1064467414896:web:d940e4c773ade8ef3a99b5"
+        };
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-  window.db = db; // expose to window for later use
-  window.addDoc = addDoc;
-  window.collection = collection;
-  window.getDocs = getDocs;
-</script>
+        window.db = db; // expose to window for later use
+        window.collection = collection;
+        window.getDocs = getDocs;
+
+        // Show/hide login/logout links on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const loginLink = document.getElementById('loginLink');
+            const logoutLink = document.getElementById('logoutLink');
+
+            if (isLoggedIn) {
+                loginLink.style.display = 'none';
+                logoutLink.style.display = 'inline-block';
+            } else {
+                loginLink.style.display = 'inline-block';
+                logoutLink.style.display = 'none';
+            }
+        });
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            alert('Logged out successfully');
+            window.location.href = 'login.html';
+        }
+
+        window.logout = logout; // expose logout function globally
+    </script>
+
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
 
     <!-- Favicon -->
     <link href="img/icon.png" rel="icon">
@@ -53,7 +75,6 @@
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 
-
 </head>
 
 <body>
@@ -66,11 +87,11 @@
     </div>
     <!-- Spinner End -->
 
-
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <p class="m-0 fw-bold" style="font-size: 25px;"><img src="img/icon.png" alt="" height="50px">SQL <span style="color: #fb873f;">Geniushub</span></p> 
+            <p class="m-0 fw-bold" style="font-size: 25px;"><img src="img/icon.png" alt="" height="50px">SQL <span
+                    style="color: #fb873f;">Geniushub</span></p>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
             style="border: none;">
@@ -85,11 +106,16 @@
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                     <div class="dropdown-menu fade-down m-0">
                         <a href="team.html" class="dropdown-item">Our Team</a>
-                       
                     </div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
-                <a href="login.html" class="nav-item nav-link"><i class="fa fa-user"></i></a>
+
+                <!-- Login Icon link -->
+                <a href="login.html" class="nav-item nav-link" id="loginLink"><i class="fa fa-user"></i></a>
+
+                <!-- Logout button link -->
+                <a href="#" class="nav-item nav-link" id="logoutLink" style="display:none;" onclick="logout()">Logout</a>
+
                 <a href="#" class="nav-item nav-link">
                     <div id="google_translate_element"></div>
                 </a>
@@ -98,47 +124,43 @@
     </nav>
     <!-- Navbar End -->
 
-        <!-- Header Start -->
-        <div class="container-fluid bg-primary py-5 mb-5 page-header">
-            <div class="container py-5">
-                <div class="row justify-content-center">
-                    <div class="col-lg-10 text-center">
-                        <h1 class="display-3 text-white animated slideInDown">Login</h1>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb justify-content-center">
-                                <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
-                                <li class="breadcrumb-item text-white active" aria-current="page">Login</li>
-                            </ol>
-                        </nav>
-                    </div>
+    <!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Login</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Login</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
         </div>
-        <!-- Header End -->
-    
-
+    </div>
+    <!-- Header End -->
 
     <!-- Login Start -->
     <div class="container-xxl py-2 mt-4">
         <div class="container">
-          
             <div class="row g-4 wow fadeInUp" data-wow-delay="0.5s ">
                 <center>
                     <form class="shadow p-4" style="max-width: 550px;">
                         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                             <h1 class="mb-5 bg-white text-center px-3">Login</h1>
-            
                         </div>
                         <div class="row g-3">
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control" id="email" placeholder="Email Address">
+                                    <input type="email" class="form-control" id="email" placeholder="Email Address" required>
                                     <label for="email">Email Address</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="password" class="form-control" id="password" placeholder="Password">
+                                    <input type="password" class="form-control" id="password" placeholder="Password" required>
                                     <label for="password">Password</label>
                                 </div>
                             </div>
@@ -146,7 +168,7 @@
                             <div class="col-12">
                                 <p><a href="#">Forgot password?</a></p>
                             </div>
-                            
+
                             <div class="col-12">
                                 <button class="btn text-light w-100 py-3" type="submit">Login</button>
                             </div>
@@ -156,14 +178,11 @@
                             </div>
                         </div>
                     </form>
-                </center>     
-               
-
+                </center>
             </div>
         </div>
     </div>
     <!-- Login End -->
-
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
@@ -218,10 +237,8 @@
     </div>
     <!-- Footer End -->
 
-
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -233,36 +250,37 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
     <script type="module">
-  const loginForm = document.querySelector('form');
-  loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const enteredEmail = document.getElementById('email').value;
-    const enteredPassword = document.getElementById('password').value;
+        const loginForm = document.querySelector('form');
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const enteredEmail = document.getElementById('email').value;
+            const enteredPassword = document.getElementById('password').value;
 
-    try {
-      const querySnapshot = await window.getDocs(window.collection(window.db, "users"));
-      let loggedIn = false;
+            try {
+                const querySnapshot = await window.getDocs(window.collection(window.db, "users"));
+                let loggedIn = false;
 
-      querySnapshot.forEach((doc) => {
-        const user = doc.data();
-        if (user.email === enteredEmail && user.password === enteredPassword) {
-          loggedIn = true;
-          localStorage.setItem("isLoggedIn", "true");
-          alert("Login successful!");
-          window.location.href = "index.html"; // or dashboard
-        }
-      });
+                querySnapshot.forEach((doc) => {
+                    const user = doc.data();
+                    if (user.email === enteredEmail && user.password === enteredPassword) {
+                        loggedIn = true;
+                        localStorage.setItem("isLoggedIn", "true");
+                        alert("Login successful!");
+                        window.location.href = "index.html"; // or dashboard
+                    }
+                });
 
-      if (!loggedIn) {
-        alert("Invalid email or password.");
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      alert("Login failed.");
-    }
-  });
-</script>
+                if (!loggedIn) {
+                    alert("Invalid email or password.");
+                }
+            } catch (error) {
+                console.error("Login error:", error);
+                alert("Login failed.");
+            }
+        });
+    </script>
 
 </body>
 
