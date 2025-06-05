@@ -32,44 +32,7 @@
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 
-    <!-- Firebase SDKs & Login Logic -->
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-      import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
 
-      const firebaseConfig = {
-        apiKey: "AIzaSyDwbNPm65zz_kYkJ4wZrYMqkLA_YnhX6JA",
-        authDomain: "sqlgeniushub-authentication.firebaseapp.com",
-        projectId: "sqlgeniushub-authentication",
-        storageBucket: "sqlgeniushub-authentication.appspot.com",
-        messagingSenderId: "1064467414896",
-        appId: "1:1064467414896:web:your_app_id_here"
-      };
-
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
-
-      window.addEventListener('DOMContentLoaded', () => {
-        const loginForm = document.querySelector('form');
-
-        loginForm.addEventListener('submit', (e) => {
-          e.preventDefault();
-
-          const email = document.getElementById('email').value.trim();
-          const password = document.getElementById('password').value;
-
-          signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-              const user = userCredential.user;
-              alert('Login successful! Welcome ' + user.email);
-              window.location.href = 'index.html';
-            })
-            .catch((error) => {
-              alert('Error: ' + error.message);
-            });
-        });
-      });
-    </script>
 </head>
 
 <body>
@@ -86,8 +49,7 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <p class="m-0 fw-bold" style="font-size: 25px;"><img src="img/icon.png" alt="" height="50px">SQL <span
-                    style="color: #fb873f;">Geniushub</span></p>
+            <p class="m-0 fw-bold" style="font-size: 25px;"><img src="img/icon.png" alt="" height="50px">SQL <span style="color: #fb873f;">Geniushub</span></p> 
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
             style="border: none;">
@@ -102,7 +64,7 @@
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                     <div class="dropdown-menu fade-down m-0">
                         <a href="team.html" class="dropdown-item">Our Team</a>
-
+                       
                     </div>
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
@@ -115,45 +77,47 @@
     </nav>
     <!-- Navbar End -->
 
-    <!-- Header Start -->
-    <div class="container-fluid bg-primary py-5 mb-5 page-header">
-        <div class="container py-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-10 text-center">
-                    <h1 class="display-3 text-white animated slideInDown">Login</h1>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb justify-content-center">
-                            <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
-                            <li class="breadcrumb-item text-white active" aria-current="page">Login</li>
-                        </ol>
-                    </nav>
+        <!-- Header Start -->
+        <div class="container-fluid bg-primary py-5 mb-5 page-header">
+            <div class="container py-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10 text-center">
+                        <h1 class="display-3 text-white animated slideInDown">Login</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center">
+                                <li class="breadcrumb-item"><a class="text-white" href="index.html">Home</a></li>
+                                <li class="breadcrumb-item text-white active" aria-current="page">Login</li>
+                            </ol>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Header End -->
+        <!-- Header End -->
+    
+
 
     <!-- Login Start -->
     <div class="container-xxl py-2 mt-4">
         <div class="container">
-
+          
             <div class="row g-4 wow fadeInUp" data-wow-delay="0.5s ">
                 <center>
                     <form class="shadow p-4" style="max-width: 550px;">
                         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                             <h1 class="mb-5 bg-white text-center px-3">Login</h1>
-
+            
                         </div>
                         <div class="row g-3">
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control" id="email" placeholder="Email Address" required>
+                                    <input type="email" class="form-control" id="email" placeholder="Email Address">
                                     <label for="email">Email Address</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="password" class="form-control" id="password" placeholder="Password" required>
+                                    <input type="password" class="form-control" id="password" placeholder="Password">
                                     <label for="password">Password</label>
                                 </div>
                             </div>
@@ -161,7 +125,7 @@
                             <div class="col-12">
                                 <p><a href="#">Forgot password?</a></p>
                             </div>
-
+                            
                             <div class="col-12">
                                 <button class="btn text-light w-100 py-3" type="submit">Login</button>
                             </div>
@@ -171,12 +135,14 @@
                             </div>
                         </div>
                     </form>
-                </center>
+                </center>     
+               
 
             </div>
         </div>
     </div>
     <!-- Login End -->
+
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
@@ -208,8 +174,8 @@
                     <p>Subscribe now and join our growing community of learners committed to lifelong education! </p>
                     <div class="position-relative mx-auto" style="max-width: 400px;">
                         <form action="#">
-                            <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="email" placeholder="Your email"
-                                required>
+                            <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="email"
+                                placeholder="Your email" required>
                             <button type="submit"
                                 class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2"><a
                                     href="mailto:SQLGeniushub@gmail.com">Subscribe</a></button>
